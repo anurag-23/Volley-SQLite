@@ -1,0 +1,28 @@
+<resources>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="app_name">Volley</string>
+    <string name="volunteer">Volunteer</string>
+    <string name="organization">Organization</string>
+    <string name="login">Login</string>
+    <string name="login_as">Login as</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="havent_signed_up">Haven\'t signed up yet?</string>
+    <string name="signup">Sign Up</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="organization_name">Organization Name</string>
+    <string name="address">Building Address</string>
+    <string name="website">Website</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="organizations">Organizations</string>
+</resources>

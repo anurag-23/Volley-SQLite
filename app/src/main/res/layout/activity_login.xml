@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/login_root_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/login_collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:expandedTitleMargin="@dimen/padding_default"
+            app:contentScrim="@color/colorPrimary"
+            app:statusBarScrim="@android:color/transparent"
+            app:expandedTitleTextAppearance="@style/ExpandedCustomTextAppearance"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="210dp"
+                app:layout_collapseMode="parallax"
+                android:background="@color/colorAccent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/scenery"
+                    android:scaleType="centerCrop"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/login_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                android:background="@android:color/transparent"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/padding_default"
+        android:paddingRight="@dimen/padding_default"
+        android:paddingTop="@dimen/padding_default"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_half">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/login_email_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:textSize="@dimen/typography_subheading"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="@color/green_dark"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_half">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/login_password_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:textSize="@dimen/typography_subheading"
+                    android:inputType="textPassword"
+                    android:textColorHint="@color/green_dark"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/login_button"
+                android:layout_marginTop="@dimen/padding_2x"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:clickable="true"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_primary_bg"
+                android:text="@string/login"
+                android:textAllCaps="true"
+                android:padding="@dimen/padding_default"
+                android:textSize="@dimen/typography_title"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-medium"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="@android:drawable/divider_horizontal_bright"
+                android:layout_marginTop="40dp"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/padding_2x"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/havent_signed_up"
+                android:gravity="center"
+                android:textSize="@dimen/typography_subheading"/>
+
+            <TextView
+                android:id="@+id/sign_up_button"
+                android:layout_marginTop="@dimen/padding_half"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:clickable="true"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_primary_bg"
+                android:text="@string/signup"
+                android:textAllCaps="true"
+                android:padding="@dimen/padding_default"
+                android:textSize="@dimen/typography_title"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif-medium"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
