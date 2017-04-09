@@ -1,15 +1,19 @@
 package com.dbs.volley.adapters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dbs.volley.R;
 import com.dbs.volley.activities.OrgDescriptionActivity;
+import com.dbs.volley.application.Volley;
+import com.dbs.volley.database.DatabaseAdapter;
 import com.dbs.volley.models.Organization;
 
 import java.util.List;
@@ -21,10 +25,12 @@ public class OrganizationsAdapter extends RecyclerView.Adapter<OrganizationsAdap
 
     private List<Organization> orgList;
     private Activity activity;
+    private DatabaseAdapter dbAdapter;
 
-    public OrganizationsAdapter(List<Organization> orgList, Activity activity) {
+    public OrganizationsAdapter(List<Organization> orgList, Activity activity, DatabaseAdapter dbAdapter) {
         this.orgList = orgList;
         this.activity = activity;
+        this.dbAdapter = dbAdapter;
     }
 
     @Override
@@ -38,6 +44,12 @@ public class OrganizationsAdapter extends RecyclerView.Adapter<OrganizationsAdap
 
         holder.orgName.setText(o.getName());
         holder.orgCity.setText(o.getCity());
+        if (dbAdapter.canVolunteerForOrg(activity.getSharedPreferences(Volley.VOL_DATA, Context.MODE_PRIVATE).getString("volEmail", ""), o.getEmail())){
+            holder.orgCheck.setVisibility(View.GONE);
+        }
+        else{
+            holder.orgCheck.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -49,12 +61,14 @@ public class OrganizationsAdapter extends RecyclerView.Adapter<OrganizationsAdap
 
         TextView orgName;
         TextView orgCity;
+        ImageView orgCheck;
 
         public OrganizationViewHolder(View itemView) {
             super(itemView);
 
             orgName = (TextView)itemView.findViewById(R.id.org_name_text_view);
             orgCity = (TextView)itemView.findViewById(R.id.org_city_text_view);
+            orgCheck = (ImageView)itemView.findViewById(R.id.org_check_image_view);
             itemView.setOnClickListener(this);
         }
 

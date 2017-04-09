@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/create_event_root_layout" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/create_event_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            android:background="@android:color/transparent"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/create_event_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/padding_default"
+        android:paddingRight="@dimen/padding_default"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:id="@+id/create_event_edit_text_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_half">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/event_name_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/event_name"
+                    android:textSize="@dimen/typography_subheading"
+                    android:inputType="textPersonName"
+                    android:textColorHint="@color/green_dark"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:baselineAligned="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_half">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/event_date_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/date"
+                        android:textSize="@dimen/typography_subheading"
+                        android:inputType="date"
+                        android:textColorHint="@color/green_dark"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_half">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/event_time_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/time"
+                        android:textSize="@dimen/typography_subheading"
+                        android:inputType="text"
+                        android:textColorHint="@color/green_dark"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_half">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/event_address_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/event_address"
+                    android:textSize="@dimen/typography_subheading"
+                    android:inputType="textPostalAddress"
+                    android:textColorHint="@color/green_dark"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_half">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/event_city_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/city"
+                    android:textSize="@dimen/typography_subheading"
+                    android:inputType="textPostalAddress"
+                    android:textColorHint="@color/green_dark"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/create_event_submit_button"
+        android:layout_below="@+id/organization_signup_edit_text_container"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/padding_default"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/padding_default"
+        android:gravity="center"
+        android:clickable="true"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_primary_bg"
+        android:text="@string/create_event"
+        android:textAllCaps="true"
+        android:padding="@dimen/padding_default"
+        android:textSize="@dimen/typography_title"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-medium"
+        app:layout_anchor="@id/create_event_scroll_view"
+        app:layout_anchorGravity="bottom"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+</android.support.design.widget.CoordinatorLayout>

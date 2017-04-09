@@ -1,5 +1,6 @@
 package com.dbs.volley.activities;
 
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -68,16 +69,19 @@ public class VolunteerSignUpActivity extends AppCompatActivity {
                         Snackbar.make(rootLayout, "Entered passwords don't match!", Snackbar.LENGTH_SHORT).show();
                     }
                     else{
-                        Snackbar.make(rootLayout, "Sign up successful!", Snackbar.LENGTH_SHORT).show();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                adapter.volInsert(v);
-                                adapter.loginInsert(v.getEmail(), p1, VOL_TYPE);
-                                finish();
-                            }
-                        }, 500);
-
+                        try{
+                            adapter.volInsert(v);
+                            adapter.loginInsert(v.getEmail(), p1, VOL_TYPE);
+                            Snackbar.make(rootLayout, "Sign up successful!", Snackbar.LENGTH_SHORT).show();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    finish();
+                                }
+                            }, 500);
+                        }catch(SQLiteConstraintException ce){
+                            Snackbar.make(rootLayout, "Email already in use!", Snackbar.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }

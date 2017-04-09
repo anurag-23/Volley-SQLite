@@ -20,7 +20,8 @@ import java.util.List;
 
 public class OrganizationsFragment extends Fragment {
 
-    List<Organization> orgList = new ArrayList<>();
+    private List<Organization> orgList = new ArrayList<>();
+    private DatabaseAdapter dbAdapter;
 
     public OrganizationsFragment() {
     }
@@ -31,15 +32,20 @@ public class OrganizationsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_organizations, container, false);
         getActivity().setTitle(R.string.organizations);
-        DatabaseAdapter dbAdapter = new DatabaseAdapter(getActivity());
+        dbAdapter = new DatabaseAdapter(getActivity());
         dbAdapter.open();
 
         RecyclerView orgRecyclerView = (RecyclerView)view.findViewById(R.id.organizations_recycler_view);
-        OrganizationsAdapter adapter = new OrganizationsAdapter(dbAdapter.fetchOrg(), getActivity());
+        OrganizationsAdapter adapter = new OrganizationsAdapter(dbAdapter.fetchOrg(), getActivity(), dbAdapter);
         orgRecyclerView.setAdapter(adapter);
         orgRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        dbAdapter.close();
+    }
 }

@@ -25,4 +25,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="organizations">Organizations</string>
+    <string name="leave_organization">Leave Organization</string>
+    <string name="events">Events</string>
+    <string name="profile">Your Profile</string>
+    <string name="volunteers">Volunteers</string>
+    <string name="event_name">Event Name</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="event_address">Address</string>
+    <string name="create_event">Create Event</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.dbs.volley.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -12,7 +13,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.dbs.volley.R;
+import com.dbs.volley.application.Volley;
 import com.dbs.volley.database.DatabaseAdapter;
+import com.dbs.volley.models.Organization;
 
 public class LoginActivity extends AppCompatActivity {
     private static final int VOL_LOGIN = 0;
@@ -61,7 +64,18 @@ public class LoginActivity extends AppCompatActivity {
                     String pwd = (getIntent().getIntExtra("loginType", 0) == VOL_LOGIN ? adapter.loginVolQuery(i1) : adapter.loginOrgQuery(i1));
                     if (pwd!=null && pwd.equals(i2)){
                         //Snackbar.make(rootLayout, "Login successful!", Snackbar.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        SharedPreferences.Editor editor = getSharedPreferences(Volley.VOL_DATA, MODE_PRIVATE).edit();
+                        Intent intent = null;
+
+                        if (getIntent().getIntExtra("loginType", 0) == VOL_LOGIN){
+                            intent = new Intent(LoginActivity.this, VolunteerMainActivity.class);
+                            editor.putString("volEmail", i1);
+                        }
+                        else{
+                            intent = new Intent(LoginActivity.this, OrganizationMainActivity.class);
+                            editor.putString("orgEmail", i1);
+                        }
+                        editor.apply();
                         startActivity(intent);
                     }
                     else{

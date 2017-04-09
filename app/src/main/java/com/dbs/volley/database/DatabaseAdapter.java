@@ -5,12 +5,20 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.SystemClock;
+import android.util.Log;
 
+import com.dbs.volley.models.Event;
 import com.dbs.volley.models.Organization;
 import com.dbs.volley.models.Volunteer;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by anurag on 2/4/17.
@@ -31,9 +39,17 @@ public class DatabaseAdapter {
     static final String ORG_CREATE = "create table if not exists ORGANIZATION"+
             "(NAME varchar(20), EMAIL varchar(20) primary key, ADDRESS varchar(20), CITY varchar(20), STATE varchar(20), PHONE varchar(15), WEBSITE varchar(20));";
 
+    static final String VOL_FOR_CREATE = "create table if not exists VOLUNTEERS_FOR"+
+            "(VEMAIL varchar(20) primary key, OEMAIL varchar(20), STARTDATE date, PERIOD int, foreign key (VEMAIL) references VOLUNTEER(EMAIL), foreign key (OEMAIL) references ORGANIZATION(EMAIL));";
+
+    static final String EVENT_CREATE = "create table if not exists EVENT"+
+            "(ID integer primary key autoincrement, NAME varchar(20) unique, OEMAIL varchar(20), EDATE date, ETIME time, ADDRESS varchar(30), CITY varchar(20));";
+
     static final String LOGIN_DROP = "DROP TABLE IF EXISTS LOGIN;";
     static final String VOL_DROP = "DROP TABLE IF EXISTS VOLUNTEER;";
-    static final String ORG_DROP = "DROP TABLE IF EXISTS ORGANIZATION";
+    static final String ORG_DROP = "DROP TABLE IF EXISTS ORGANIZATION;";
+    static final String VOL_FOR_DROP = "DROP TABLE IF EXISTS VOLUNTEERS_FOR;";
+    static final String EVENT_DROP = "DROP TABLE IF EXISTS EVENT;";
 
     public SQLiteDatabase db;
     private Context context;
@@ -133,6 +149,28 @@ public class DatabaseAdapter {
         return null;
     }
 
+    public List<Volunteer> getVolFromOrg(String orgEmail){
+        String query = "SELECT * FROM VOLUNTEER WHERE EMAIL IN (SELECT VEMAIL FROM VOLUNTEERS_FOR WHERE OEMAIL = \'"+orgEmail+"\');";
+        List<Volunteer> volList = new ArrayList<>();
+
+        Cursor c = db.rawQuery(query, null);
+        if (c!=null && c.getCount()>0){
+            c.moveToFirst();
+            for (int i=0; i<c.getCount(); i++){
+                Volunteer v = new Volunteer();
+                v.setName(c.getString(0));
+                v.setEmail(c.getString(1));
+                v.setPhone(c.getString(2));
+                v.setCity(c.getString(3));
+                v.setState(c.getString(4));
+                volList.add(v);
+                c.moveToNext();
+            }
+            c.close();
+        }
+        return volList;
+    }
+
     public void orgInsert(Organization o){
         String insertQuery = "INSERT INTO ORGANIZATION VALUES (\'"+o.getName()+"\', \'"+o.getEmail()+"\', \'"+o.getAddress()+"\', \'"+o.getCity()+"\', \'"+o.getState()+"\', \'"+o.getPhone()+"\', \'"+o.getWebsite()+"\');";
         db.execSQL(insertQuery);
@@ -195,4 +233,108 @@ public class DatabaseAdapter {
 
         return orgList;
     }
+
+    public void volForInsert(String vEmail, String oEmail, int period){
+        java.util.Date d = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        String date = sdf.format(d);
+
+        String query = "INSERT INTO VOLUNTEERS_FOR VALUES (\'"+vEmail+"\', \'"+oEmail+"\', "+date+", "+period+");";
+        Log.d("", query);
+        db.execSQL(query);
+    }
+
+    public boolean canVolunteerForOrg(String vEmail, String oEmail){
+        String query = "SELECT * FROM VOLUNTEERS_FOR WHERE VEMAIL = \'"+vEmail+"\' AND OEMAIL = \'"+oEmail+"\';";
+        Cursor c = db.rawQuery(query, null);
+        if (c!=null){
+            if (c.getCount() != 0){
+                return false;
+            }
+            c.close();
+        }
+
+        return true;
+    }
+
+    public boolean isVolunteer(String vEmail){
+        String query = "SELECT * FROM VOLUNTEERS_FOR WHERE VEMAIL = \'"+vEmail+"\';";
+        Cursor c = db.rawQuery(query, null);
+        if (c!=null){
+            if (c.getCount() != 0) return true;
+            c.close();
+        }
+        return false;
+    }
+
+    public String getOrg(String vEmail){
+        String query = "SELECT OEMAIL FROM VOLUNTEERS_FOR WHERE VEMAIL = \'"+vEmail+"\';";
+        Cursor c = db.rawQuery(query, null);
+        if (c!=null){
+            if (c.getCount()>0){
+                c.moveToFirst();
+                String temp = c.getString(0);
+                c.close();
+                return temp;
+            }
+        }
+        return "";
+    }
+
+    public void volForDelete(String email){
+        String query = "DELETE FROM VOLUNTEERS_FOR WHERE VEMAIL = \'"+email+"\';";
+        db.execSQL(query);
+    }
+
+    public void eventInsert(Event e){
+        String query = "INSERT INTO EVENT(NAME, OEMAIL, EDATE, ETIME, ADDRESS, CITY) VALUES (\'"+e.getName()+"\', \'"+e.getOrgEmail()+"\', \'"+e.getEventDate()+"\', \'"+e.getEventTime()+"\', \'"+e.getAddress()+"\', \'"+e.getCity()+"\');";
+        db.execSQL(query);
+    }
+
+    public Organization getOrgFromEvent(String eventName){
+        String query = "SELECT * FROM ORGANIZATION WHERE EMAIL = (SELECT OEMAIL FROM EVENT WHERE NAME = \'"+eventName+"\');";
+        Cursor c = db.rawQuery(query, null);
+
+        if (c!=null && c.getCount()>0){
+            Organization o = new Organization();
+            c.moveToFirst();
+            o.setName(c.getString(0));
+            o.setEmail(c.getString(1));
+            o.setAddress(c.getString(2));
+            o.setCity(c.getString(3));
+            o.setState(c.getString(4));
+            o.setPhone(c.getString(5));
+            o.setWebsite(c.getString(6));
+            c.close();
+            return o;
+        }
+
+        return null;
+    }
+
+    public List<Event> fetchEvents(String orgEmail){
+        String query = "SELECT * FROM EVENT WHERE OEMAIL = \'"+orgEmail+"\';";
+        Cursor c = db.rawQuery(query, null);
+        List<Event> eventList = new ArrayList<>();
+
+        if (c!=null && c.getCount() > 0){
+            c.moveToFirst();
+
+            for (int i=0; i<c.getCount(); i++){
+                Event e = new Event();
+                e.setName(c.getString(1));
+                e.setOrgEmail(c.getString(2));
+                e.setEventDate(c.getString(3));
+                e.setEventTime(c.getString(4));
+                e.setAddress(c.getString(5));
+                e.setCity(c.getString(6));
+                eventList.add(e);
+                c.moveToNext();
+            }
+            c.close();
+        }
+
+        return eventList;
+    }
+
 }

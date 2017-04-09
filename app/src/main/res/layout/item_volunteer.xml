@@ -18,44 +18,33 @@
         <ImageView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_organizations"
-            android:tint="@color/white"
-            android:background="@drawable/circular_primary_bg"
-            android:padding="10dp"
+            android:src="@drawable/ic_profile"
+            android:layout_marginRight="@dimen/padding_half"
             android:layout_marginEnd="@dimen/padding_half"
-            android:layout_marginRight="@dimen/padding_half"/>
+            android:tint="@color/colorPrimary"/>
 
         <LinearLayout
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <TextView
-                android:id="@+id/org_name_text_view"
-                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/vol_name_text_view"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
-                tools:text="Organization name"
+                tools:text="Volunteer Name"
                 android:textColor="@color/black"
                 android:textSize="@dimen/typography_title"/>
 
             <TextView
-                android:id="@+id/org_city_text_view"
-                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/vol_city_text_view"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="City"
+                tools:text="Volunteer City"
                 android:textSize="@dimen/typography_title"/>
-
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/org_check_image_view"
-            android:layout_weight="0"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_check_box"
-            android:tint="@color/colorPrimaryDark"/>
     </LinearLayout>
 
     <View

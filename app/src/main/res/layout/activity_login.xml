@@ -96,7 +96,8 @@
 
             <TextView
                 android:id="@+id/login_button"
-                android:layout_marginTop="@dimen/padding_2x"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="@dimen/padding_half"
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:clickable="true"
@@ -113,10 +114,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="1.5dp"
                 android:background="@android:drawable/divider_horizontal_bright"
-                android:layout_marginTop="40dp"/>
+                android:layout_marginTop="60dp"/>
 
             <TextView
-                android:layout_marginTop="@dimen/padding_2x"
+                android:layout_marginTop="48dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/havent_signed_up"
