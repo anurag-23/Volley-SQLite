@@ -428,4 +428,9 @@ public class DatabaseAdapter {
 
         return eventList;
     }
+
+    public void eventDelete(String name){
+        String query = "DELETE FROM EVENT WHERE NAME = \'"+name+"\';";
+        db.execSQL(query);
+    }
 }

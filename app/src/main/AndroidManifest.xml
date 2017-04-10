@@ -28,8 +28,8 @@
             android:parentActivityName=".activities.LoginActivity" />
         <activity
             android:name=".activities.VolunteerMainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -43,8 +43,8 @@
             android:parentActivityName=".activities.VolunteerMainActivity" />
         <activity
             android:name=".activities.OrganizationMainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -52,8 +52,14 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
-            </activity>
-        <activity android:name=".activities.CreateEventActivity"
+        </activity>
+        <activity
+            android:name=".activities.CreateEventActivity"
+            android:parentActivityName=".activities.OrganizationMainActivity" />
+        <activity
+            android:name=".activities.EventDetailsActivity"
+            android:parentActivityName=".activities.OrganizationMainActivity" />
+        <activity android:name=".activities.VolunteerDetailsActivity"
             android:parentActivityName=".activities.OrganizationMainActivity"/>
     </application>
 

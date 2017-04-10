@@ -2,7 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/org_description_root_layout"
+    android:id="@+id/event_details_root_layout"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
@@ -35,17 +35,17 @@
                 android:gravity="center_horizontal">
 
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:background="@drawable/circular_primary_bg"
-                    android:src="@drawable/ic_organizations"
+                    android:src="@drawable/ic_events"
                     android:tint="@color/white"
                     android:layout_marginTop="64dp"/>
 
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/org_toolbar"
+                android:id="@+id/event_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
@@ -57,7 +57,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:id="@+id/org_scroll_view"
+        android:id="@+id/event_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -78,6 +78,49 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:alpha="0.54"
+                    android:src="@drawable/ic_time"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/event_date_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/typography_subheading"
+                        tools:text="Date"/>
+
+                    <TextView
+                        android:id="@+id/event_time_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/typography_subheading"
+                        tools:text="Time"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/padding_default"
+                android:background="@android:drawable/divider_horizontal_bright"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/padding_default">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:alpha="0.54"
                     android:src="@drawable/ic_location"
                     android:layout_marginEnd="32dp"
                     android:layout_marginRight="32dp"/>
@@ -87,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/org_address_text_view"
+                        android:id="@+id/event_address_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/typography_subheading"
@@ -95,19 +138,11 @@
 
                     <TextView
                         android:layout_marginTop="4dp"
-                        android:id="@+id/org_city_text_view"
+                        android:id="@+id/event_city_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/typography_subheading"
-                        tools:text="Address"/>
-
-                    <TextView
-                        android:layout_marginTop="4dp"
-                        android:id="@+id/org_state_text_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/typography_subheading"
-                        tools:text="Address"/>
+                        tools:text="City"/>
 
                 </LinearLayout>
 
@@ -135,73 +170,11 @@
                     android:layout_marginRight="32dp"/>
 
                 <TextView
-                    android:id="@+id/org_email_text_view"
+                    android:id="@+id/event_org_email_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/typography_subheading"
                     tools:text="Email"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="@dimen/padding_default"
-                android:background="@android:drawable/divider_horizontal_bright"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="@dimen/padding_default">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:alpha="0.54"
-                    android:src="@drawable/ic_phone"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"/>
-
-                <TextView
-                    android:id="@+id/org_phone_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/typography_subheading"
-                    tools:text="Phone"
-                    android:autoLink="phone"
-                    android:linksClickable="true"/>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="@dimen/padding_default"
-                android:background="@android:drawable/divider_horizontal_bright"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/padding_default">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:alpha="0.54"
-                    android:src="@drawable/ic_website"
-                    android:layout_marginEnd="32dp"
-                    android:layout_marginRight="32dp"/>
-
-                <TextView
-                    android:id="@+id/org_website_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/typography_subheading"
-                    tools:text="Website"/>
-
             </LinearLayout>
 
         </LinearLayout>
@@ -211,19 +184,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/org_volunteer_submit_button"
+        android:id="@+id/event_delete_button"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/padding_half"
         android:gravity="center"
         android:clickable="true"
         android:background="@drawable/rounded_primary_bg"
-        android:text="@string/volunteer"
+        android:text="@string/delete_event"
         android:textAllCaps="true"
         android:padding="@dimen/padding_default"
         android:textSize="@dimen/typography_title"
         android:textColor="@color/white"
         android:fontFamily="sans-serif-medium"
-        app:layout_anchor="@id/org_scroll_view"
+        app:layout_anchor="@id/event_scroll_view"
         app:layout_anchorGravity="bottom"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 

@@ -17,11 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dbs.volley.R;
-import com.dbs.volley.adapters.VolEventsAdapter;
 import com.dbs.volley.adapters.VolunteersAdapter;
 import com.dbs.volley.application.Volley;
 import com.dbs.volley.database.DatabaseAdapter;
-import com.dbs.volley.models.Organization;
 import com.dbs.volley.models.Volunteer;
 
 import java.util.ArrayList;
@@ -53,7 +51,7 @@ public class OrgVolunteersFragment extends Fragment {
         dbAdapter.open();
 
         setHasOptionsMenu(true);
-        
+
         orgEmail = getActivity().getSharedPreferences(Volley.VOL_DATA, Context.MODE_PRIVATE).getString("orgEmail", "");
         volList = dbAdapter.getVolFromOrg(orgEmail);
 
