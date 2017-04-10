@@ -19,6 +19,7 @@ import com.dbs.volley.application.Volley;
 import com.dbs.volley.database.DatabaseAdapter;
 import com.dbs.volley.fragments.OrganizationsFragment;
 import com.dbs.volley.fragments.VolEventsFragment;
+import com.dbs.volley.fragments.VolProfileFragment;
 import com.dbs.volley.models.Volunteer;
 
 public class VolunteerMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -81,6 +82,7 @@ public class VolunteerMainActivity extends AppCompatActivity implements Navigati
                 setCheckedItem(R.id.vol_menu_orgs);
                 break;
             case R.id.vol_menu_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new VolProfileFragment()).commit();
                 setCheckedItem(R.id.vol_menu_profile);
                 break;
             case R.id.vol_menu_delete:

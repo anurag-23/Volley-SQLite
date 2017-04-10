@@ -65,7 +65,7 @@ public class OrganizationSignUpActivity extends AppCompatActivity {
                 final String p1 = password.getText().toString();
                 String p2 = confirmPassword.getText().toString();
 
-                if (o.getName().equals("") || o.getEmail().equals("") || o.getPhone().equals("") || o.getCity().equals("") || o.getState().equals("") || p1.equals("") || p2.equals("")){
+                if (o.getName().equals("") || o.getEmail().equals("") || o.getPhone().equals("") || o.getCity().equals("") || o.getWebsite().equals("") || o.getAddress().equals("") || o.getState().equals("") || p1.equals("") || p2.equals("")){
                     Snackbar.make(rootLayout, "Please fill in all the required details!", Snackbar.LENGTH_SHORT).show();
                 }
                 else{

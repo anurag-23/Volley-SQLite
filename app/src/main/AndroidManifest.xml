@@ -28,13 +28,31 @@
             android:parentActivityName=".activities.LoginActivity" />
         <activity
             android:name=".activities.VolunteerMainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity
             android:name=".activities.OrgDescriptionActivity"
             android:parentActivityName=".activities.VolunteerMainActivity" />
         <activity
             android:name=".activities.OrganizationMainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            </activity>
         <activity android:name=".activities.CreateEventActivity"
             android:parentActivityName=".activities.OrganizationMainActivity"/>
     </application>

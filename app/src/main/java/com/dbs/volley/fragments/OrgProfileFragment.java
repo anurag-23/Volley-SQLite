@@ -95,7 +95,7 @@ public class OrgProfileFragment extends Fragment {
                 final String p1 = password.getText().toString();
                 String p2 = confirmPassword.getText().toString();
 
-                if (o.getName().equals("") || o.getEmail().equals("") || o.getPhone().equals("") || o.getCity().equals("") || o.getState().equals("") || p1.equals("") || p2.equals("")){
+                if (o.getName().equals("") || o.getEmail().equals("") || o.getPhone().equals("") || o.getCity().equals("") || o.getWebsite().equals("") || o.getAddress().equals("") || o.getState().equals("") || p1.equals("") || p2.equals("")){
                     Snackbar.make(view, "Please fill in all the required details!", Snackbar.LENGTH_SHORT).show();
                 }
                 else{
@@ -108,7 +108,7 @@ public class OrgProfileFragment extends Fragment {
                             adapter.loginUpdate(orgEmail, p1);
                             Snackbar.make(view, "Changes saved!", Snackbar.LENGTH_SHORT).show();
                         }catch(SQLiteConstraintException ce){
-                            Snackbar.make(view, "", Snackbar.LENGTH_SHORT).show();
+                            ce.printStackTrace();
                         }
                     }
                 }

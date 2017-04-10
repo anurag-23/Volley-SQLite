@@ -1,0 +1,153 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/padding_default"
+    android:paddingRight="@dimen/padding_default"
+    android:paddingTop="@dimen/padding_half"
+    android:paddingBottom="@dimen/padding_half"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_half">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/volunteer_profile_name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name"
+            android:textSize="@dimen/typography_subheading"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/green_dark"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:text="@string/email"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="@dimen/padding_half"/>
+
+    <TextView
+        android:id="@+id/vol_profile_email_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_half"
+        tools:text="Email"
+        android:textSize="@dimen/typography_subheading"
+        android:textColor="@color/black"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="@dimen/padding_half"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_half">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/volunteer_profile_phone_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone"
+            android:textSize="@dimen/typography_subheading"
+            android:inputType="phone"
+            android:textColorHint="@color/green_dark"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:baselineAligned="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_half">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/volunteer_profile_city_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/city"
+                android:textSize="@dimen/typography_subheading"
+                android:inputType="textPostalAddress"
+                android:textColorHint="@color/green_dark"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_half">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/volunteer_profile_state_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/state"
+                android:textSize="@dimen/typography_subheading"
+                android:inputType="textPostalAddress"
+                android:textColorHint="@color/green_dark"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_half">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/volunteer_profile_password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:textSize="@dimen/typography_subheading"
+            android:inputType="textPassword"
+            android:textColorHint="@color/green_dark"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_half">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/volunteer_profile_confirm_password_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/confirm_password"
+            android:textSize="@dimen/typography_subheading"
+            android:inputType="textPassword"
+            android:textColorHint="@color/green_dark"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <TextView
+        android:id="@+id/vol_profile_save_profile_button"
+        android:layout_marginTop="@dimen/padding_default"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:clickable="true"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_primary_bg"
+        android:text="@string/save_profile"
+        android:textAllCaps="true"
+        android:padding="@dimen/padding_default"
+        android:textSize="@dimen/typography_title"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-medium"/>
+
+</LinearLayout>

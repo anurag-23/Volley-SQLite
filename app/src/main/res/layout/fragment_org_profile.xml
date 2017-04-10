@@ -2,7 +2,10 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="@dimen/padding_default"
+    android:paddingLeft="@dimen/padding_default"
+    android:paddingRight="@dimen/padding_default"
+    android:paddingTop="@dimen/padding_half"
+    android:paddingBottom="@dimen/padding_half"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
             <android.support.design.widget.TextInputLayout
@@ -22,6 +25,15 @@
             </android.support.design.widget.TextInputLayout>
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:text="@string/email"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="@dimen/padding_half"/>
+
+            <TextView
                 android:id="@+id/org_profile_email_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -30,7 +42,8 @@
                 android:textSize="@dimen/typography_subheading"
                 android:textColor="@color/black"
                 android:layout_marginLeft="4dp"
-                android:layout_marginStart="4dp"/>
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="@dimen/padding_half"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

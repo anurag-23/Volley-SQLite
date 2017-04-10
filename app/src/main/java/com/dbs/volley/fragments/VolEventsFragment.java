@@ -1,6 +1,7 @@
 package com.dbs.volley.fragments;
 
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteConstraintException;
@@ -11,8 +12,12 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,6 +26,7 @@ import com.dbs.volley.adapters.VolEventsAdapter;
 import com.dbs.volley.application.Volley;
 import com.dbs.volley.database.DatabaseAdapter;
 import com.dbs.volley.models.Event;
+import com.dbs.volley.models.Organization;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +35,8 @@ public class VolEventsFragment extends Fragment {
 
     private DatabaseAdapter dbAdapter;
     private List<Event> eventsList = new ArrayList<>();
+    private VolEventsAdapter adapter;
+
     public VolEventsFragment() {
         // Required empty public constructor
     }
@@ -46,13 +54,15 @@ public class VolEventsFragment extends Fragment {
         dbAdapter = new DatabaseAdapter(getActivity());
         dbAdapter.open();
 
+        setHasOptionsMenu(true);
+
         SharedPreferences sp = getActivity().getSharedPreferences(Volley.VOL_DATA, Context.MODE_PRIVATE);
         if (dbAdapter.isVolunteer(sp.getString("volEmail", ""))){
             eventsList = dbAdapter.fetchEvents(dbAdapter.getOrg(sp.getString("volEmail", "")));
         }
 
         RecyclerView eventsRecyclerView = (RecyclerView)view.findViewById(R.id.vol_events_recycler_view);
-        final VolEventsAdapter adapter = new VolEventsAdapter(eventsList, getActivity(), dbAdapter);
+        adapter = new VolEventsAdapter(eventsList, getActivity(), dbAdapter);
         eventsRecyclerView.setAdapter(adapter);
         eventsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -63,6 +73,52 @@ public class VolEventsFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         dbAdapter.close();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_vol_orgs, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.menu_vol_orgs_search);
+        SearchView searchView = (SearchView)searchItem.getActionView();
+
+        SearchManager searchManager = (SearchManager)getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setIconifiedByDefault(false);
+        searchView.setSubmitButtonEnabled(false);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                eventsList.clear();
+                List<Event> tempList = dbAdapter.fetchEvents(dbAdapter.getOrg(getActivity().getSharedPreferences(Volley.VOL_DATA, Context.MODE_PRIVATE).getString("volEmail", "")), query);
+                eventsList.addAll(tempList);
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                eventsList.clear();
+                List<Event> tempList = dbAdapter.fetchEvents(dbAdapter.getOrg(getActivity().getSharedPreferences(Volley.VOL_DATA, Context.MODE_PRIVATE).getString("volEmail", "")), newText);
+                eventsList.addAll(tempList);
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                eventsList.clear();
+                List<Event> tempList = dbAdapter.fetchEvents(dbAdapter.getOrg(getActivity().getSharedPreferences(Volley.VOL_DATA, Context.MODE_PRIVATE).getString("volEmail", "")));
+                eventsList.addAll(tempList);
+                adapter.notifyDataSetChanged();
+                return false;
+            }
+        });
     }
 
 }

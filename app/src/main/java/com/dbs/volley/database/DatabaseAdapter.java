@@ -142,7 +142,7 @@ public class DatabaseAdapter {
     }
 
     public void volUpdate(Volunteer v){
-        String updateQuery = "UPDATE VOLUNTEER SET NAME = \'"+v.getName()+"\', SET PHONE = \'"+v.getPhone()+"\', SET CITY = \'"+v.getCity()+"\', SET STATE = \'"+v.getState()+"\' WHERE EMAIL = \'"+v.getEmail()+"\';";
+        String updateQuery = "UPDATE VOLUNTEER SET NAME = \'"+v.getName()+"\', PHONE = \'"+v.getPhone()+"\', CITY = \'"+v.getCity()+"\', STATE = \'"+v.getState()+"\' WHERE EMAIL = \'"+v.getEmail()+"\';";
         db.execSQL(updateQuery);
     }
 
@@ -187,6 +187,30 @@ public class DatabaseAdapter {
         return volList;
     }
 
+    public List<Volunteer> fetchVol(String orgEmail, String key){
+        String query = "SELECT * FROM VOLUNTEER WHERE EMAIL IN (SELECT VEMAIL FROM VOLUNTEERS_FOR WHERE OEMAIL = \'"+orgEmail+"\') AND (NAME LIKE '%"+key+"%' OR CITY LIKE '%"+key+"%');";
+        List<Volunteer> volList = new ArrayList<>();
+
+        Cursor c = db.rawQuery(query, null);
+        if (c!=null && c.getCount()>0){
+            c.moveToFirst();
+            for (int i=0; i<c.getCount(); i++){
+                Volunteer v = new Volunteer();
+                v.setName(c.getString(0));
+                v.setEmail(c.getString(1));
+                v.setPhone(c.getString(2));
+                v.setCity(c.getString(3));
+                v.setState(c.getString(4));
+                volList.add(v);
+                c.moveToNext();
+            }
+            c.close();
+        }
+        return volList;
+    }
+
+
+
     public void orgInsert(Organization o){
         String insertQuery = "INSERT INTO ORGANIZATION VALUES (\'"+o.getName()+"\', \'"+o.getEmail()+"\', \'"+o.getAddress()+"\', \'"+o.getCity()+"\', \'"+o.getState()+"\', \'"+o.getPhone()+"\', \'"+o.getWebsite()+"\');";
         db.execSQL(insertQuery);
@@ -197,24 +221,13 @@ public class DatabaseAdapter {
         db.execSQL(deleteQuery);
     }
 
-    public void orgUpdate(Organization o){
-        String updateQuery = "UPDATE ORGANIZATION SET NAME = \'"+o.getName()+"\', SET ADDRESS = \'"+o.getAddress()+"\', SET PHONE = \'"+o.getPhone()+"\', SET WEBSITE = \'"+o.getWebsite()+"\', SET CITY = \'"+o.getCity()+"\', SET STATE = \'"+o.getState()+"\' WHERE EMAIL = \'"+o.getEmail()+"\';";
+    public void orgUpdate(Organization o){String updateQuery = "UPDATE ORGANIZATION SET NAME = \'"+o.getName()+"\', ADDRESS = \'"+o.getAddress()+"\', PHONE = \'"+o.getPhone()+"\', WEBSITE = \'"+o.getWebsite()+"\', CITY = \'"+o.getCity()+"\', STATE = \'"+o.getState()+"\' WHERE EMAIL = \'"+o.getEmail()+"\';";
         db.execSQL(updateQuery);
     }
 
     public Organization orgQuery(String email){
         String query = "SELECT * FROM ORGANIZATION WHERE EMAIL = \'"+email+"\';";
         Cursor c = db.rawQuery(query, null);
-
-        Cursor c1 = db.rawQuery("SELECT * FROM ORGANIZATION;", null);
-        if (c1 != null){
-            c1.moveToFirst();
-            for (int i = 0; i<c1.getCount(); i++){
-                Log.d(c1.getString(0), c1.getString(1)+" "+c1.getString(2)+" "+c1.getString(3)+" "+c1.getString(4)+" "+c1.getString(5)+" "+c1.getString(6));
-                c1.moveToNext();
-            }
-            c1.close();
-        }
 
         if (c != null && c.getCount() > 0){
             Log.d("Reached", "here");
@@ -260,6 +273,33 @@ public class DatabaseAdapter {
 
         return orgList;
     }
+
+    public List<Organization> fetchOrg(String key){
+        String query = "SELECT * FROM ORGANIZATION WHERE NAME LIKE '%"+key+"%' OR CITY LIKE '%"+key+"%';";
+        Cursor c = db.rawQuery(query, null);
+        List<Organization> orgList = new ArrayList<>();
+
+        if (c!=null && c.getCount() > 0){
+            c.moveToFirst();
+
+            for (int i=0; i<c.getCount(); i++){
+                Organization o = new Organization();
+                o.setName(c.getString(0));
+                o.setEmail(c.getString(1));
+                o.setAddress(c.getString(2));
+                o.setCity(c.getString(3));
+                o.setState(c.getString(4));
+                o.setPhone(c.getString(5));
+                o.setWebsite(c.getString(6));
+                orgList.add(o);
+                c.moveToNext();
+            }
+            c.close();
+        }
+
+        return orgList;
+    }
+
 
     public void volForInsert(String vEmail, String oEmail, int period){
         java.util.Date d = Calendar.getInstance().getTime();
@@ -364,4 +404,28 @@ public class DatabaseAdapter {
         return eventList;
     }
 
+    public List<Event> fetchEvents(String orgEmail, String key){
+        String query = "SELECT * FROM EVENT WHERE OEMAIL = \'"+orgEmail+"\' AND (NAME LIKE '%"+key+"%' OR CITY LIKE '%"+key+"%');";
+        Cursor c = db.rawQuery(query, null);
+        List<Event> eventList = new ArrayList<>();
+
+        if (c!=null && c.getCount() > 0){
+            c.moveToFirst();
+
+            for (int i=0; i<c.getCount(); i++){
+                Event e = new Event();
+                e.setName(c.getString(1));
+                e.setOrgEmail(c.getString(2));
+                e.setEventDate(c.getString(3));
+                e.setEventTime(c.getString(4));
+                e.setAddress(c.getString(5));
+                e.setCity(c.getString(6));
+                eventList.add(e);
+                c.moveToNext();
+            }
+            c.close();
+        }
+
+        return eventList;
+    }
 }
