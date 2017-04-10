@@ -28,7 +28,6 @@
             android:parentActivityName=".activities.LoginActivity" />
         <activity
             android:name=".activities.VolunteerMainActivity"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -43,7 +42,6 @@
             android:parentActivityName=".activities.VolunteerMainActivity" />
         <activity
             android:name=".activities.OrganizationMainActivity"
-            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

@@ -14,9 +14,6 @@ import com.dbs.volley.models.Volunteer;
 
 import java.util.List;
 
-/**
- * Created by anurag on 9/4/17.
- */
 public class VolunteersAdapter extends RecyclerView.Adapter<VolunteersAdapter.VolunteerViewHolder> {
 
     private List<Volunteer> volList;

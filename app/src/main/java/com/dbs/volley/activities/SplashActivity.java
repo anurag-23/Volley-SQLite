@@ -2,6 +2,8 @@ package com.dbs.volley.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,6 +25,8 @@ public class SplashActivity extends AppCompatActivity {
         TextView orgButton = (TextView)findViewById(R.id.organization_button);
         TextView volButton = (TextView)findViewById(R.id.volunteer_button);
         LinearLayout splashLayout = (LinearLayout)findViewById(R.id.splash_linear_layout);
+
+        if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
 
         SharedPreferences sp = getSharedPreferences(Volley.VOL_DATA, MODE_PRIVATE);
 

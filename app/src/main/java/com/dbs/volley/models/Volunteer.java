@@ -1,8 +1,5 @@
 package com.dbs.volley.models;
 
-/**
- * Created by anurag on 4/4/17.
- */
 public class Volunteer {
     private String name;
     private String email;

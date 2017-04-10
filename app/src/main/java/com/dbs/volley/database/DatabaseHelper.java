@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by anurag on 2/4/17.
- */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -22,6 +19,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DatabaseAdapter.EVENT_CREATE);
         sqLiteDatabase.execSQL(DatabaseAdapter.ORG_DELETE_TRIGGER);
         sqLiteDatabase.execSQL(DatabaseAdapter.VOL_DELETE_TRIGGER);
+
+        for (int i=0; i<DatabaseAdapter.INSERT_STATEMENTS.length; i++){
+            sqLiteDatabase.execSQL(DatabaseAdapter.INSERT_STATEMENTS[i]);
+        }
     }
 
     @Override

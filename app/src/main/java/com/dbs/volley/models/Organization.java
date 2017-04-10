@@ -1,8 +1,5 @@
 package com.dbs.volley.models;
 
-/**
- * Created by anurag on 5/4/17.
- */
 public class Organization {
     private String name;
     private String email;

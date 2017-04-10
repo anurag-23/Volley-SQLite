@@ -17,9 +17,6 @@ import com.dbs.volley.models.Organization;
 
 import java.util.List;
 
-/**
- * Created by anurag on 8/4/17.
- */
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.VolEventViewHolder> {
 
     private List<Event> eventsList;

@@ -2,9 +2,6 @@ package com.dbs.volley.models;
 
 import java.util.Date;
 
-/**
- * Created by anurag on 8/4/17.
- */
 public class Event {
     private String name;
     private String orgEmail;

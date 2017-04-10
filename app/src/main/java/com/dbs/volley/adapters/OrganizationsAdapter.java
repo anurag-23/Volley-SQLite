@@ -18,9 +18,6 @@ import com.dbs.volley.models.Organization;
 
 import java.util.List;
 
-/**
- * Created by anurag on 6/4/17.
- */
 public class OrganizationsAdapter extends RecyclerView.Adapter<OrganizationsAdapter.OrganizationViewHolder> {
 
     private List<Organization> orgList;
