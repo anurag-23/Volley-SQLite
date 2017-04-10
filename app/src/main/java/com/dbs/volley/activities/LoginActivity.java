@@ -9,6 +9,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -70,13 +71,17 @@ public class LoginActivity extends AppCompatActivity {
                         if (getIntent().getIntExtra("loginType", 0) == VOL_LOGIN){
                             intent = new Intent(LoginActivity.this, VolunteerMainActivity.class);
                             editor.putString("volEmail", i1);
+                            editor.putString("loggedInAs", "volunteer");
                         }
                         else{
                             intent = new Intent(LoginActivity.this, OrganizationMainActivity.class);
                             editor.putString("orgEmail", i1);
+                            editor.putString("loggedInAs", "organization");
                         }
+                        editor.putBoolean("loggedIn", true);
                         editor.apply();
                         startActivity(intent);
+                        finish();
                     }
                     else{
                         Snackbar.make(rootLayout, "Login failed!", Snackbar.LENGTH_SHORT).show();
@@ -106,5 +111,23 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         adapter.close();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, SplashActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

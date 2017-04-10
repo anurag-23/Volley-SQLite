@@ -40,10 +40,26 @@ public class DatabaseAdapter {
             "(NAME varchar(20), EMAIL varchar(20) primary key, ADDRESS varchar(20), CITY varchar(20), STATE varchar(20), PHONE varchar(15), WEBSITE varchar(20));";
 
     static final String VOL_FOR_CREATE = "create table if not exists VOLUNTEERS_FOR"+
-            "(VEMAIL varchar(20) primary key, OEMAIL varchar(20), STARTDATE date, PERIOD int, foreign key (VEMAIL) references VOLUNTEER(EMAIL), foreign key (OEMAIL) references ORGANIZATION(EMAIL));";
+            "(VEMAIL varchar(20) primary key, OEMAIL varchar(20), STARTDATE date, PERIOD int, foreign key (VEMAIL) references VOLUNTEER(EMAIL), foreign key (OEMAIL) references ORGANIZATION(EMAIL) on delete cascade);";
 
     static final String EVENT_CREATE = "create table if not exists EVENT"+
-            "(ID integer primary key autoincrement, NAME varchar(20) unique, OEMAIL varchar(20), EDATE date, ETIME time, ADDRESS varchar(30), CITY varchar(20));";
+            "(ID integer primary key autoincrement, NAME varchar(20) unique, OEMAIL varchar(20), EDATE date, ETIME time, ADDRESS varchar(30), CITY varchar(20), foreign key (OEMAIL) references ORGANIZATION(EMAIL) on delete cascade);";
+
+    static final String ORG_DELETE_TRIGGER = "CREATE TRIGGER IF NOT EXISTS ORG_DELETE"+
+            " AFTER DELETE ON ORGANIZATION"+
+            " FOR EACH ROW" +
+            " BEGIN" +
+            " DELETE FROM VOLUNTEERS_FOR WHERE OEMAIL = OLD.EMAIL;" +
+            " DELETE FROM EVENT WHERE OEMAIL = OLD.EMAIL;"+
+            " END;";
+
+    static final String VOL_DELETE_TRIGGER = "CREATE TRIGGER IF NOT EXISTS VOL_DELETE"+
+            " AFTER DELETE ON VOLUNTEER"+
+            " FOR EACH ROW" +
+            " BEGIN" +
+            " DELETE FROM VOLUNTEERS_FOR WHERE VEMAIL = OLD.EMAIL;" +
+            " END;";
+
 
     static final String LOGIN_DROP = "DROP TABLE IF EXISTS LOGIN;";
     static final String VOL_DROP = "DROP TABLE IF EXISTS VOLUNTEER;";
@@ -190,7 +206,18 @@ public class DatabaseAdapter {
         String query = "SELECT * FROM ORGANIZATION WHERE EMAIL = \'"+email+"\';";
         Cursor c = db.rawQuery(query, null);
 
+        Cursor c1 = db.rawQuery("SELECT * FROM ORGANIZATION;", null);
+        if (c1 != null){
+            c1.moveToFirst();
+            for (int i = 0; i<c1.getCount(); i++){
+                Log.d(c1.getString(0), c1.getString(1)+" "+c1.getString(2)+" "+c1.getString(3)+" "+c1.getString(4)+" "+c1.getString(5)+" "+c1.getString(6));
+                c1.moveToNext();
+            }
+            c1.close();
+        }
+
         if (c != null && c.getCount() > 0){
+            Log.d("Reached", "here");
             Organization o = new Organization();
             c.moveToFirst();
             o.setName(c.getString(0));

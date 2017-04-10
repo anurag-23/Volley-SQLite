@@ -20,6 +20,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DatabaseAdapter.ORG_CREATE);
         sqLiteDatabase.execSQL(DatabaseAdapter.VOL_FOR_CREATE);
         sqLiteDatabase.execSQL(DatabaseAdapter.EVENT_CREATE);
+        sqLiteDatabase.execSQL(DatabaseAdapter.ORG_DELETE_TRIGGER);
+        sqLiteDatabase.execSQL(DatabaseAdapter.VOL_DELETE_TRIGGER);
     }
 
     @Override

@@ -34,4 +34,8 @@
     <string name="time">Time</string>
     <string name="event_address">Address</string>
     <string name="create_event">Create Event</string>
+    <string name="logout">Log Out</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="save_profile">Save Profile</string>
+    <string name="edit_profile">Edit Profile</string>
 </resources>

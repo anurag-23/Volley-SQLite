@@ -16,4 +16,14 @@
         android:title="@string/profile"
         android:icon="@drawable/ic_profile"/>
 
+    <item
+        android:id="@+id/org_menu_logout"
+        android:title="@string/logout"
+        android:icon="@drawable/ic_log_out"/>
+
+    <item
+        android:id="@+id/org_menu_delete"
+        android:title="@string/delete_account"
+        android:icon="@drawable/ic_delete"/>
+
 </menu>

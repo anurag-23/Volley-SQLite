@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.dbs.volley.R;
@@ -43,6 +45,11 @@ public class CreateEventActivity extends AppCompatActivity {
         final TextInputEditText time = (TextInputEditText)findViewById(R.id.event_time_edit_text);
         final TextInputEditText address = (TextInputEditText)findViewById(R.id.event_address_edit_text);
         final TextInputEditText city = (TextInputEditText)findViewById(R.id.event_city_edit_text);
+        final Spinner timeSpinner = (Spinner)findViewById(R.id.event_time_spinner);
+
+        String[] amPm = {"AM", "PM"};
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, amPm);
+        timeSpinner.setAdapter(arrayAdapter);
 
         TextView createEvent = (TextView)findViewById(R.id.create_event_submit_button);
 
@@ -53,7 +60,7 @@ public class CreateEventActivity extends AppCompatActivity {
                 e.setName(name.getText().toString());
                 e.setOrgEmail(getSharedPreferences(Volley.VOL_DATA, MODE_PRIVATE).getString("orgEmail", ""));
                 e.setEventDate(date.getText().toString());
-                e.setEventTime(time.getText().toString());
+                e.setEventTime(time.getText().toString()+" "+timeSpinner.getSelectedItem().toString());
                 e.setAddress(address.getText().toString());
                 e.setCity(city.getText().toString());
 
